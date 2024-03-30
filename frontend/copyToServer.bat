@@ -1,0 +1,1 @@
+scp -r .\dist\portfolio\* jonas@bytesbyboon.be:/website_files/portfolio_sites_files/portfolio

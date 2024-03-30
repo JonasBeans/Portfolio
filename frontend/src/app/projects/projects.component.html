@@ -1,0 +1,13 @@
+<div class="grid-container">
+    <div class="side-bar">
+        <p>Here come the blog posts:</p>
+        <div *ngFor="let post of posts">
+            <app-blog-post [post]="post"></app-blog-post>
+        </div>
+    </div>
+    <div class="main-page">
+        <markdown mermaid src="{{currentMarkdown}}"></markdown>
+    </div>
+    <div class="side-bar"></div>
+</div>
+<footer></footer>

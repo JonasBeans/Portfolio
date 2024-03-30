@@ -1,0 +1,17 @@
+<div class="grid-container">
+    <div class="side-bar" [hidden]="enablePosts">
+        <button (click)="enablePostList()">Full list</button>
+        <button (click)="getPrevious()">previous 5</button>
+        <button (click)="getNext()">next 5</button>
+        <input #searchbox type="text" placeholder="placeholder">
+        <div *ngFor="let post of getPosts()">
+            <app-blog-post  [post]="post" (pageContent)="receivePageContent($event)"></app-blog-post>
+        </div>
+        
+    </div>
+    <div class="main-page">
+        <markdown mermaid data={{currentMarkdown}} ></markdown>
+    </div>
+    <div class="side-bar"></div>
+</div>
+<footer></footer>

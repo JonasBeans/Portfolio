@@ -1,0 +1,10 @@
+header {
+    background-color: rgb(246, 153, 92);
+    padding: 0 25%;
+    display: flex;
+    justify-content: space-between;
+}
+
+header h1 {
+    background-color: rgb(246, 153, 92);
+}

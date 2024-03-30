@@ -1,0 +1,62 @@
+body {
+    padding: 0; 
+    margin: 0;
+    min-height: 1vh;
+    background-color: rgb(155, 176, 193);
+}
+footer {
+    height: 200px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 25% auto 25%;
+    background-color: rgb(155, 176, 193);
+}
+
+header {
+    background-color: rgb(234, 223, 180)
+}
+
+header h1{
+    margin: 0;
+    padding: 10px 0;
+    background-color: rgb(81, 130, 155);
+}
+
+.main-page{
+    padding: 2em;
+    background-color: rgb(234, 223, 180);
+}
+
+.side-bar{
+    padding: 2em;
+    background-color: rgb(155, 176, 193);
+}
+
+#page-title{
+    padding: 10px 0 10px 25%;
+}
+
+nav {
+    padding: 0.25em;
+    background-color: rgb(246, 153, 92);
+}
+
+button {
+    margin: 10px 5px;
+    padding: 10px;
+    background-color: rgb(185, 165, 151);
+}
+
+button:hover {
+    margin: 10px 5px;
+    padding: 10px;
+    background-color: rgb(141, 126, 115);
+}
+
+.active {
+    margin: 10px 5px;
+    padding: 10px;
+    background-color: rgb(141, 126, 115);
+}
