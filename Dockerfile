@@ -6,11 +6,11 @@ RUN mvn -f /code/pom.xml clean package
 
 FROM eclipse-temurin:17-jre-jammy
 RUN mkdir /mnt/posts
-RUN mkdir /certs
 ENV PAGES_PATH="/mnt/posts/"
 ENV ALLOWED_ORIGINS=*
-ENV KEYSTORE_FILE="/certs/keystore.p12"
+ENV KEYSTORE_PASSWORD="test"
 ARG JAR_FILE=/code/backend/target/*.jar
+COPY ./backend/keystore.p12 ./certificates/keystore.p12
 COPY --from=backend-builder $JAR_FILE /app/application.jar
 EXPOSE 8080
 ENTRYPOINT java -jar /app/application.jar --spring.profiles.active="production"
