@@ -12,7 +12,7 @@ on:
       refresh-frontend:
         required: true
         type: boolean
-        description: Build and redeploy docker image
+        description: Build and redeploy frontend
 
 jobs:
   scp_transfer:
@@ -49,6 +49,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: ${{ secrets.SSH_PORT }}
+          port: ${{ secrets.SSH_PORT }
+          rm: true
+          strip_components: 1
           source: "./frontend/dist/portfolio/*"
           target: "/website_files/portfolio_sites_files/portfolio/"
