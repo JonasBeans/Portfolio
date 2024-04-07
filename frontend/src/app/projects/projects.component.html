@@ -1,12 +1,16 @@
-<div class="grid-container">
-    <div class="side-bar">
-        <p>Here come the blog posts:</p>
-        <div *ngFor="let post of posts">
-            <app-blog-post [post]="post"></app-blog-post>
+<div [ngClass]="enablePosts ? 'grid-hidden' : 'grid-container'">
+    <button [hidden]="!enablePosts" class="" (click)="switchMenu()">SHOW</button>
+    <div class="side-bar" [hidden]="enablePosts">
+        <button (click)="switchMenu()">Full list</button>
+        <button (click)="getPrevious()">previous 5</button>
+        <button (click)="getNext()">next 5</button>
+        <input #searchbox type="text" placeholder="placeholder">
+        <div *ngFor="let post of getPosts()">
+            <app-blog-post  [post]="post" (pageContent)="receivePageContent($event)"></app-blog-post>
         </div>
     </div>
     <div class="main-page">
-        <markdown mermaid src="{{currentMarkdown}}"></markdown>
+        <markdown mermaid data={{currentMarkdown}} ></markdown>
     </div>
     <div class="side-bar"></div>
 </div>

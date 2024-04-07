@@ -11,7 +11,6 @@ import { MarkdownService } from 'ngx-markdown';
 })
 export class BlogPostsComponent {
     
-    
     public posts?: String[];
     public currentMarkdown: string = "";
     public startIndex = 0;
@@ -22,7 +21,7 @@ export class BlogPostsComponent {
         private blogService: BlogService
     ) { };
 
-    enablePostList() {
+    switchMenu() {
         this.enablePosts = !this.enablePosts;
     }
 
