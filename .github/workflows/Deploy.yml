@@ -26,14 +26,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            docker stop portfolio
-            docker rm portfolio
-            docker pull jonasbeans/portfolio:${{ github.event.inputs.version }}
-            docker run \
-              -v  ./certs:/certs \
-              -v ./research/OnderwerpenGeleerd:/mnt/posts/ \
-              -p 8080:8080 \
-              --name portfolio -d jonasbeans/portfolio:${{ github.event.inputs.version }}
+            sh ~/run/restartDockerContainer.sh ${{ github.event.inputs.version }}
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: NPM instal
@@ -54,3 +47,12 @@ jobs:
           strip_components: 3
           source: "./frontend/dist/portfolio/*"
           target: "/website_files/portfolio_sites_files/portfolio/"
+      - name: SSH into server reload nginx
+        if: ${{ github.event.inputs.refresh-container }}
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            sh ~/run/nginx.sh
