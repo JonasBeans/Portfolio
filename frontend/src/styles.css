@@ -14,6 +14,19 @@ footer {
     background-color: rgb(155, 176, 193);
 }
 
+.grid-hidden {
+    display: grid;
+    grid-template-columns: 7em auto 7em;  
+    background-color: rgb(155, 176, 193);
+}
+
+@media (max-width: 575.98px) {
+.grid-container {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 header {
     background-color: rgb(234, 223, 180)
 }

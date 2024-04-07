@@ -1,0 +1,8 @@
+@media (max-width: 575.98px) {
+header {
+        padding: 0;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+}

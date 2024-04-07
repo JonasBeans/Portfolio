@@ -8,3 +8,11 @@ header {
 header h1 {
     background-color: rgb(246, 153, 92);
 }
+
+@media (max-width: 575.98px) {
+nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
