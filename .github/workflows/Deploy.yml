@@ -5,20 +5,21 @@ on:
     inputs:
       version:
         description: version of the docker image
+      refresh-container:
+        type: boolean
+        required: true
+        description: Build and redeploy docker image
+      refresh-frontend:
+        required: true
+        type: boolean
+        description: Build and redeploy docker image
 
 jobs:
   scp_transfer:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: NPM instal
-        run: | 
-          cd frontend
-          npm install
-          npm run build --configuration=production
       - name: SSH into server, remove container, and recreate
+        if: ${{ github.event.inputs.refresh-container }}
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -32,14 +33,22 @@ jobs:
               -v  ./certs:/certs \
               -v ./research/OnderwerpenGeleerd:/mnt/posts/ \
               -p 8080:8080 \
-              -e KEYSTORE_PASSWORD=test \
-              --name portfolio -d jonasbeans/portfolio:${{ github.event.inputs.version }} \
+              --name portfolio -d jonasbeans/portfolio:${{ github.event.inputs.version }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: NPM instal
+        if: ${{ github.event.inputs.refresh-frontend }}
+        run: |
+          cd frontend
+          npm install
+          npm run build --configuration=production
       - name: Copy files via SCP
         uses: appleboy/scp-action@master
+        if: ${{ github.event.inputs.refresh-frontend }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
-          source: "./frontend/dist/*"
+          source: "./frontend/dist/portfolio/*"
           target: "/website_files/portfolio_sites_files/portfolio/"
