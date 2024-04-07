@@ -51,6 +51,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           rm: true
-          strip_components: 1
+          strip_components: 3
           source: "./frontend/dist/portfolio/*"
           target: "/website_files/portfolio_sites_files/portfolio/"
