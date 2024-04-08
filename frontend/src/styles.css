@@ -20,13 +20,6 @@ footer {
     background-color: rgb(155, 176, 193);
 }
 
-@media (max-width: 575.98px) {
-.grid-container {
-        display: flex;
-        flex-direction: column;
-    }
-}
-
 header {
     background-color: rgb(234, 223, 180)
 }
@@ -72,4 +65,15 @@ button:hover {
     margin: 10px 5px;
     padding: 10px;
     background-color: rgb(141, 126, 115);
+}
+
+@media (max-width: 575.98px) {
+.grid-container {
+        display: flex;
+        flex-direction: column;
+    }
+.grid-hidden {
+        display: flex;
+        flex-direction: column;
+}
 }
