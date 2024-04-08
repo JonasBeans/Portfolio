@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
+        default: ''
         description: version of the docker image
       refresh-container:
         type: boolean
@@ -19,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: SSH into server, remove container, and recreate
-        if: ${{ github.event.inputs.refresh-container }}
+        if: ${{ github.event.inputs.refresh-container == 'true' }}
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -30,14 +31,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: NPM instal
-        if: ${{ github.event.inputs.refresh-frontend }}
+        if: ${{ github.event.inputs.refresh-frontend == 'true' }}
         run: |
           cd frontend
           npm install
           npm run build --configuration=production
       - name: Copy files via SCP
         uses: appleboy/scp-action@master
-        if: ${{ github.event.inputs.refresh-frontend }}
+        if: ${{ github.event.inputs.refresh-frontend == 'true' }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -48,7 +49,7 @@ jobs:
           source: "./frontend/dist/portfolio/*"
           target: "/website_files/portfolio_sites_files/portfolio/"
       - name: SSH into server reload nginx
-        if: ${{ github.event.inputs.refresh-container }}
+        if: ${{ github.event.inputs.refresh-frontend == 'true' }}
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SSH_HOST }}
