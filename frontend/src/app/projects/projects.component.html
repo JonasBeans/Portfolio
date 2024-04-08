@@ -5,6 +5,7 @@
         <button (click)="getPrevious()">previous 5</button>
         <button (click)="getNext()">next 5</button>
         <input #searchbox type="text" placeholder="placeholder">
+        <button (click)="search(searchbox.value)">search</button>
         <div *ngFor="let post of getPosts()">
             <app-blog-post  [post]="post" (pageContent)="receivePageContent($event)"></app-blog-post>
         </div>
