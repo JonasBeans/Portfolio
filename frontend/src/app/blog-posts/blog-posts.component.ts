@@ -53,4 +53,12 @@ export class BlogPostsComponent {
         (this.endIndex - 10) <= 0 ? this.endIndex = 5 : this.endIndex -= 5 ;
     }
 
+    search(search : string) {
+        if ( !search ) {
+            this.ngOnInit();
+        }
+        this.posts = this.posts?.filter(
+            post => post.toLowerCase().includes(search.toLocaleLowerCase())
+        ); 
+    }
 }
