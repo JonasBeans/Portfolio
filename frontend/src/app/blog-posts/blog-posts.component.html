@@ -7,7 +7,7 @@
         <input #searchbox type="text" placeholder="placeholder">
         <button (click)="search(searchbox.value)">search</button>
         <div *ngFor="let post of getPosts()">
-            <app-blog-post  [post]="post" (pageContent)="receivePageContent($event)"></app-blog-post>
+            <app-blog-post [location]="'blog'" [post]="post" (pageContent)="receivePageContent($event)"></app-blog-post>
         </div>
     </div>
     <div class="main-page">

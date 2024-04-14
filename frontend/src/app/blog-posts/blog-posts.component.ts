@@ -3,6 +3,7 @@ import { BlogService } from '../service/blog.service';
 import { BlogPost } from 'src/DTO/BlogPost';
 import { Observable, map, pipe } from 'rxjs';
 import { MarkdownService } from 'ngx-markdown';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-blog-posts',
@@ -16,17 +17,18 @@ export class BlogPostsComponent {
     public startIndex = 0;
     public endIndex = 5;
     public enablePosts: boolean = false;
+    private location;
 
-    public constructor(
-        private blogService: BlogService
-    ) { };
+    public constructor(private blogService: BlogService) { 
+        this.location = environment.blogPostLocation;
+    };
 
     switchMenu() {
         this.enablePosts = !this.enablePosts;
     }
 
     ngOnInit(){
-        this.blogService.getPostTitles().subscribe((result) => this.posts = result);
+        this.blogService.getPostTitlesByLocation(this.location).subscribe((result) => this.posts = result);
     }
 
     receivePageContent(pageContent: BlogPost) {
