@@ -25,7 +25,7 @@ class PageServiceITTest {
     @Test
     public void folderName_getFiles_listOfFileNames() throws FileNotFoundException {
         //given
-        File fileContent = ResourceUtils.getFile("src/test/resources/test-pages/Java/AssertJ.md");
+        File fileContent = ResourceUtils.getFile("src/test/resources/test-pages/blog/AssertJ.md");
 
         //when
         PostsDTO pageByName = pageService.getPageByName("AssertJ.md");
@@ -46,7 +46,34 @@ class PageServiceITTest {
 
         //then
         assertThat(pageTitles).contains("AssertJ.md");
-        assertThat(pageTitles).size().isEqualTo(26);
+        assertThat(pageTitles).size().isEqualTo(4);
+    }
+
+    @Test
+    public void folderName_getFileNames_listOfFileNamesOfSpecificFolder(){
+        //given
+
+        //when
+        Set<String> pageTitles = pageService.getPageTitles("project");
+
+        //then
+        assertThat(pageTitles).contains("Linux.md");
+        assertThat(pageTitles).size().isEqualTo(1);
+    }
+
+    @Test
+    public void folderName_getFiles_listOfFileNamesOfSpecificFolder() throws FileNotFoundException {
+        //given
+        File fileContent = ResourceUtils.getFile("src/test/resources/test-pages/project/Linux.md");
+
+        //when
+        PostsDTO pageByName = pageService.getPageByName("project" ,"Linux.md");
+
+        //then
+        assertThat(pageByName.getTitle())
+                .isEqualTo("Linux.md");
+        assertThat(pageByName.getFilePath())
+                .isEqualTo(fileContent);
     }
 
 }

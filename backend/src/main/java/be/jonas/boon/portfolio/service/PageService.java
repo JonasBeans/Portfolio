@@ -22,8 +22,18 @@ public class PageService {
     @Value("${posts.blog.path}")
     private String pagePath;
 
+    @Deprecated(forRemoval = true)
     public Set<String> getPageTitles(){
         File folder = new File(pagePath);
+        return getPageTitles(folder);
+    }
+
+    public Set<String> getPageTitles(String location){
+        File folder = new File(pagePath + "/" + location);
+        return getPageTitles(folder);
+    }
+
+    private static Set<String> getPageTitles(File folder) {
         return getAllFilePaths(folder).stream()
                 .map(File::getName)
                 .map(PostsDTO.Mapper::mapTo)
@@ -31,9 +41,18 @@ public class PageService {
                 .collect(Collectors.toSet());
     }
 
+    @Deprecated(forRemoval = true)
     public PostsDTO getPageByName(String title) {
         File folder = new File(pagePath);
+        return getPostsDTO(title, folder);
+    }
 
+    public PostsDTO getPageByName(String location, String title) {
+        File folder = new File(pagePath + "/" + location);
+        return getPostsDTO(title, folder);
+    }
+
+    private static PostsDTO getPostsDTO(String title, File folder) {
         return getAllFilePaths(folder).stream()
                 .filter(file -> file.getName().equals(title))
                 .map(PostsDTO::new)
