@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MarkdownComponent } from 'ngx-markdown';
 import { BlogPost } from 'src/DTO/BlogPost';
 import { BlogService } from '../service/blog.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-projects',
@@ -9,17 +10,20 @@ import { BlogService } from '../service/blog.service';
   styleUrl: './projects.component.css'
 })
 export class ProjectsComponent {
-    public currentMarkdown: string = "../../assets/posts/LinodePortfolioWebsite.md";
+    public currentMarkdown: string = "";
     public posts?: String[];
+    public location;
 
     public startIndex = 0;
     public endIndex = 5;
     public enablePosts: boolean = false;
 
-    public constructor(private blogService: BlogService) { };
+    public constructor(private blogService: BlogService) { 
+        this.location = environment.projectPostLocation;
+    };
 
     ngOnInit(){
-        this.blogService.getPostTitles().subscribe((result) => this.posts = result);
+        this.blogService.getPostTitlesByLocation(this.location).subscribe((result) => this.posts = result);
     }
 
     receivePageContent(pageContent: BlogPost) {
