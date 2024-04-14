@@ -9,6 +9,7 @@ import { BlogService } from 'src/app/service/blog.service';
 })
 export class BlogPostComponent {
     @Input() public post?: String; 
+    @Input() public location: string = "";
     @Output() pageContent = new EventEmitter<any>();
     private retrievePageContent?: BlogPost;
 
@@ -17,7 +18,7 @@ export class BlogPostComponent {
     public getFile(){
         console.log(`Post name ${this.post}`);
         if(this.post !== undefined){
-            this.blogService.getPageContent(this.post)
+            this.blogService.getPageContentByLocation(this.location, this.post)
                 .subscribe((result) => {
                     this.retrievePageContent = result;
                     this.pageContent.emit(this.retrievePageContent);
