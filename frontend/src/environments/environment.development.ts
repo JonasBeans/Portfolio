@@ -5,5 +5,6 @@ export const environment = {
     host: 'http://localhost:8080', 
     pathToPosts: '', 
     blogPostLocation: 'blog', 
-    projectPostLocation: 'project'
+    projectPostLocation: 'project', 
+    homeLocation: 'home'
 }; 
