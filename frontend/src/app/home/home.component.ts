@@ -8,11 +8,21 @@ import { BlogService } from '../service/blog.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-    public posts?: String[];
+    post?: BlogPost;
+    currentMarkdown?: string;
 
     public constructor(private blogService: BlogService) { };
 
-    onInit(){
-        this.blogService.getPostTitles().subscribe((result) => this.posts = result);
+    ngOnInit(){
+        this.blogService.getPageContentByLocation("home", "home.md")
+            .subscribe((result) => {
+                this.receivePageContent(result)
+            });
+    }
+
+    receivePageContent(pageContent: BlogPost) {
+        const decoder = new TextDecoder('utf-8');
+        this.currentMarkdown = decoder
+            .decode(Uint8Array.from(atob(pageContent.content), c => c.charCodeAt(0)).buffer);
     }
 }
